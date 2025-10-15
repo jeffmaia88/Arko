@@ -1,0 +1,6 @@
+@Arko.API_HostAddress = http://localhost:5127
+
+GET {{Arko.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
