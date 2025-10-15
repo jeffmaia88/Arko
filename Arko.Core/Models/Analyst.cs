@@ -6,9 +6,12 @@ using System.Threading.Tasks;
 
 namespace Arko.Core.Models
 {
-    public class Analista
+    public class Analyst
     {
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
+
+        public IList<Entry> Entries { get; set; }
+        public IList<Exit> Exits { get; set; }
     }
 }
