@@ -16,7 +16,9 @@ namespace Arko.API.Data.Mappings
             builder.Property(x => x.Type).HasColumnType("VARCHAR").IsRequired();
             builder.Property(x => x.Brand).HasColumnType("VARCHAR").IsRequired();
             builder.Property(x => x.Model).HasColumnType("VARCHAR").IsRequired();
-            builder.Property(x => x.Scrap).IsRequired();
+            
+            builder.HasOne(x => x.CurrentStock).WithOne().HasForeignKey<CurrentStock>(cs => cs.EquipmentId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasOne(x => x.Discharge).WithOne().HasForeignKey<Discharge>(d => d.EquipmentId).OnDelete(DeleteBehavior.Restrict);
         }
     }
 }

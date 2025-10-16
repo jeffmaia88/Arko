@@ -15,6 +15,9 @@ namespace Arko.API.Data.Mappings
             builder.Property(x => x.Id).ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Status).HasConversion<int>().IsRequired();
 
+            builder.HasOne(x => x.Equipment).WithOne(e => e.CurrentStock).HasForeignKey<CurrentStock>(x => x.EquipmentId).OnDelete(DeleteBehavior.Restrict);
+            builder.HasIndex(x => x.EquipmentId).IsUnique();
+
             
 
         }

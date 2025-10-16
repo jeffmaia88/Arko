@@ -12,7 +12,8 @@ namespace Arko.Core.Models
         public string Type { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
-        public Boolean Scrap { get; set; }
+        public CurrentStock? CurrentStock { get; set; }
+        public Discharge? Discharge { get; set; }
 
         public IList<Entry> Entries { get; set; }
         public IList<Exit> Exits { get; set; }
