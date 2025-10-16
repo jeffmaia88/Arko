@@ -15,8 +15,9 @@ namespace Arko.Core.Models
         public CurrentStock? CurrentStock { get; set; }
         public Discharge? Discharge { get; set; }
 
-        public IList<Entry> Entries { get; set; }
-        public IList<Exit> Exits { get; set; }
+        public IList<Entry> Entries { get; set; } =  new List<Entry>();
+
+        public IList<Exit> Exits { get; set; } = new List<Exit>();
 
     }
 }

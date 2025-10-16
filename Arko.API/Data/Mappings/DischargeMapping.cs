@@ -16,8 +16,7 @@ namespace Arko.API.Data.Mappings
 
             builder.Property(x => x.Reason).IsRequired();
 
-            builder.HasOne(x => x.Equipament).WithOne(e => e.Discharge).HasForeignKey<Discharge>(x => x.EquipmentId).OnDelete(DeleteBehavior.Restrict);
-
+            builder.HasOne(x => x.Equipment).WithOne(e => e.Discharge).HasForeignKey<Discharge>(x => x.EquipmentId).OnDelete(DeleteBehavior.Restrict);
 
 
         }

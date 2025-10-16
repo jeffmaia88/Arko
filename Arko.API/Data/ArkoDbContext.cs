@@ -5,6 +5,11 @@ namespace Arko.API.Data
 {
     public class ArkoDbContext : DbContext
     {
+        public ArkoDbContext(DbContextOptions<ArkoDbContext> options) : base(options) 
+        {
+        
+        }
+
         public DbSet<Equipment> Equipments { get; set; }
         public DbSet<Analyst> Analysts { get; set; }
         public DbSet<Entry> Entries { get; set; }

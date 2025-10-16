@@ -11,7 +11,7 @@ namespace Arko.Core.Models
         public int Id { get; set; }
         public string Name { get; set; } = string.Empty;
 
-        public IList<Entry> Entries { get; set; }
-        public IList<Exit> Exits { get; set; }
+        public IList<Entry>? Entries { get; set; }
+        public IList<Exit>? Exits { get; set; }
     }
 }
