@@ -15,6 +15,7 @@ namespace Arko.API.Data.Mappings
             builder.Property(x => x.Id).ValueGeneratedOnAdd().UseIdentityColumn();
             builder.Property(x => x.Name).HasColumnType("VARCHAR").IsRequired();
 
+            
         }
     }
 }

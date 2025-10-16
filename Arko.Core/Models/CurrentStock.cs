@@ -11,7 +11,7 @@ namespace Arko.Core.Models
     {
         public int Id { get; set; }
         public Status Status { get; set; }
-        public Equipment Equipment { get; set; } = null!;
+        public Equipment Equipments { get; set; } = null!;
         public int IdEquipment { get; set; }
     }
 }
