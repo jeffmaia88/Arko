@@ -26,9 +26,10 @@ namespace Arko.Core.Responses
         }
 
         public TData? Data { get; set; }
-        public string Message { get; set; } = string.Empty;
+        public string? Message { get; set; } = string.Empty;
 
 
+        [JsonIgnore]
         public bool IsSuccess => _code is >= 200 and <= 299;
     }
 }

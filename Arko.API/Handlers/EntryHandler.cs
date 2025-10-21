@@ -1,6 +1,8 @@
-﻿namespace Arko.API.Handlers
+﻿using Arko.API.Data;
+
+namespace Arko.API.Handlers
 {
-    public class EntryHandler
+    public class EntryHandler(ArkoDbContext context) :
     {
     }
 }
