@@ -8,7 +8,7 @@ namespace Arko.API.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<Exit> builder)
         {
-            builder.ToTable("Saídas");
+            builder.ToTable("Saidas");
 
             builder.HasKey(x => x.Id);
 

@@ -8,7 +8,7 @@ namespace Arko.API.Data.Mappings
     {
         public void Configure(EntityTypeBuilder<CurrentStock> builder)
         {
-            builder.ToTable("Estoque Atual");
+            builder.ToTable("EstoqueAtual");
 
             builder.HasKey(x => x.Id);
 
