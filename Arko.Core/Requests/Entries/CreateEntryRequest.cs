@@ -19,14 +19,8 @@ namespace Arko.Core.Requests.Entries
         [Required(ErrorMessage = "O Responsável é obrigatório")]
         public int AnalystId { get; set; }
 
-        [Required(ErrorMessage = "O Tipo de Equipamento é obrigatório")]
-        public string EquipmentType { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "A Marca é obrigatória")]
-        public string EquipmentBrand { get; set; } = string.Empty;
-
-        [Required(ErrorMessage = "O Modelo é obrigatório")]
-        public string EquipmentModel { get; set; } = string.Empty;
+        [Required(ErrorMessage = "O Patrimônio é obrigatório")]
+        public string Patrimony { get; set; } = string.Empty;        
 
     }
 }

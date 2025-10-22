@@ -13,7 +13,7 @@ namespace Arko.API.Data.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).ValueGeneratedOnAdd().UseIdentityColumn();
-            builder.Property(x => x.Name).HasColumnType("VARCHAR").IsRequired();
+            builder.Property(x => x.Name).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
 
             builder.HasMany(x => x.Entries).WithOne(e => e.Responsible).HasForeignKey(e => e.IdAnalyst).OnDelete(DeleteBehavior.Restrict);
             builder.HasMany(x => x.Exits).WithOne(e => e.Responsible).HasForeignKey(e => e.IdAnalyst).OnDelete(DeleteBehavior.Restrict);

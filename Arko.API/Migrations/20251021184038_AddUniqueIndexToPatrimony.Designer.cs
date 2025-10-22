@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arko.API.Migrations
 {
     [DbContext(typeof(ArkoDbContext))]
-    [Migration("20251016200602_v1.3")]
-    partial class v13
+    [Migration("20251021184038_AddUniqueIndexToPatrimony")]
+    partial class AddUniqueIndexToPatrimony
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -35,6 +35,7 @@ namespace Arko.API.Migrations
 
                     b.Property<string>("Name")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
@@ -131,17 +132,28 @@ namespace Arko.API.Migrations
 
                     b.Property<string>("Brand")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
 
                     b.Property<string>("Model")
                         .IsRequired()
+                        .HasMaxLength(255)
+                        .HasColumnType("VARCHAR");
+
+                    b.Property<string>("Patrimony")
+                        .IsRequired()
+                        .HasMaxLength(64)
                         .HasColumnType("VARCHAR");
 
                     b.Property<string>("Type")
                         .IsRequired()
+                        .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("Patrimony")
+                        .IsUnique();
 
                     b.ToTable("Equipamentos", (string)null);
                 });

@@ -4,6 +4,7 @@ using Arko.API.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Arko.API.Migrations
 {
     [DbContext(typeof(ArkoDbContext))]
-    partial class ArkoDbContextModelSnapshot : ModelSnapshot
+    [Migration("20251021182037_v1.5")]
+    partial class v15
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -148,9 +151,6 @@ namespace Arko.API.Migrations
                         .HasColumnType("VARCHAR");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("Patrimony")
-                        .IsUnique();
 
                     b.ToTable("Equipamentos", (string)null);
                 });

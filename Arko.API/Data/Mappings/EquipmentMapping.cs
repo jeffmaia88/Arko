@@ -13,10 +13,13 @@ namespace Arko.API.Data.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).UseIdentityColumn().ValueGeneratedOnAdd();
-            builder.Property(x => x.Type).HasColumnType("VARCHAR").IsRequired();
-            builder.Property(x => x.Brand).HasColumnType("VARCHAR").IsRequired();
-            builder.Property(x => x.Model).HasColumnType("VARCHAR").IsRequired();
-                        
+            builder.Property(x => x.Patrimony).HasColumnType("VARCHAR").HasMaxLength(64).IsRequired();
+            builder.Property(x => x.Type).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
+            builder.Property(x => x.Brand).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
+            builder.Property(x => x.Model).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
+
+            builder.HasIndex(x => x.Patrimony).IsUnique();
+
         }
     }
 }

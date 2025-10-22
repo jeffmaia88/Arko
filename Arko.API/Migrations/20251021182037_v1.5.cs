@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Arko.API.Migrations
 {
     /// <inheritdoc />
-    public partial class v13 : Migration
+    public partial class v15 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace Arko.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<string>(type: "VARCHAR", nullable: false)
+                    Name = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {
@@ -30,9 +30,10 @@ namespace Arko.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Type = table.Column<string>(type: "VARCHAR", nullable: false),
-                    Brand = table.Column<string>(type: "VARCHAR", nullable: false),
-                    Model = table.Column<string>(type: "VARCHAR", nullable: false)
+                    Patrimony = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: false),
+                    Type = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
+                    Brand = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
+                    Model = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false)
                 },
                 constraints: table =>
                 {

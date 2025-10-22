@@ -1,4 +1,5 @@
 using Arko.API.Data;
+using Arko.API.Endpoint;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -21,6 +22,9 @@ if (app.Environment.IsDevelopment())
 {
     app.MapOpenApi();
 }
+
+app.MapGet("/", () => new { message = "Ok" });
+app.MapEndpoints();
 
 app.UseHttpsRedirection();
 
