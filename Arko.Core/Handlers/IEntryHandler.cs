@@ -12,9 +12,7 @@ namespace Arko.Core.Handlers
     public interface IEntryHandler
     {
         Task<Response<Entry>> CreateAsync(CreateEntryRequest request);
-        Task<Response<Entry>> UpdateAsync(UpdateEntryRequest request);
-        Task<Response<Entry>> DeleteAsync(DeleteEntryRequest request);
-        Task<PagedResponse<List<Entry?>>> GetAllByPatrimonyAsync(GetEntryPatrimonyRequest request);
+        Task<PagedResponse<List<Entry>>> GetAllByPatrimonyAsync(GetEntryPatrimonyRequest request);
         Task<PagedResponse<List<Entry>>> GetAllAsync(GetAllEntriesRequest request);
 
     }

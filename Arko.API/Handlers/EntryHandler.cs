@@ -42,14 +42,28 @@ namespace Arko.API.Handlers
 
         }
 
-        public Task<Response<Entry>> DeleteAsync(DeleteEntryRequest request)
-        {
-            throw new NotImplementedException();
-        }
-
+       
         public async Task<PagedResponse<List<Entry>>> GetAllAsync(GetAllEntriesRequest request)
         {
-           throw new NotImplementedException();
+            try
+            {
+                var entries = await context.Entries
+                                            .Include(e=> e.Equipment)
+                                            .Include(e=> e.Responsible)
+                                            .Skip((request.PageNumber - 1) * request.PageSize)
+                                            .Take(request.PageSize)
+                                            .ToListAsync();
+                
+                var count = await context.Entries
+                                         .AsNoTracking()
+                                         .OrderByDescending(e => e.EntryDate)
+                                         .CountAsync();
+                return new PagedResponse<List<Entry>>(entries, count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Entry>>(null, 500, "Erro ao buscar entradas");
+            }
         }
 
         public async Task<PagedResponse<List<Entry>>> GetAllByPatrimonyAsync(GetEntryPatrimonyRequest request)
@@ -75,9 +89,6 @@ namespace Arko.API.Handlers
             }
         }
 
-        public Task<Response<Entry>> UpdateAsync(UpdateEntryRequest request)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arko.Core.Requests.Entries
+namespace Arko.Core.Requests.Exits
 {
-    public  class GetEntryPatrimonyRequest : PagedRequest
+    public class GetExitPatrimonyRequest : PagedRequest
     {
         public string Patrimony { get; set; } = string.Empty;
     }

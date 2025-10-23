@@ -4,10 +4,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Arko.Core.Requests.Entries
+namespace Arko.Core.Requests.Exits
 {
-    public class DeleteEntryRequest : Request
+    public class GetAllExitsRequest : PagedRequest
     {
-        public int Id { get; set; }
     }
 }
