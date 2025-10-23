@@ -44,14 +44,54 @@ namespace Arko.API.Handlers
 
         }
 
-        public Task<PagedResponse<List<Exit>>> GetAllExitsAsync(GetAllExitsRequest request)
+        public async Task<PagedResponse<List<Exit>>> GetAllExitsAsync(GetAllExitsRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var exits = await context.Exists
+                                    .Include(e => e.Responsible)
+                                    .Include(e => e.Equipment)
+                                    .Skip((request.PageNumber - 1) * request.PageSize)
+                                    .Take(request.PageSize)
+                                    .ToListAsync();
+                var count = await context.Exists
+                                         .AsNoTracking()
+                                         .OrderByDescending(e => e.ExitDate)
+                                         .CountAsync();
+                return new PagedResponse<List<Exit>>(exits,count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Exit>>(null,500, "Erro ao Buscar as Saídas");
+            }
+
+            
         }
 
-        public Task<PagedResponse<List<Exit>>> GetExitPatrimonyAsync(GetExitPatrimonyRequest request)
+        public async Task<PagedResponse<List<Exit>>> GetExitPatrimonyAsync(GetExitPatrimonyRequest request)
         {
-            throw new NotImplementedException();
+            try
+            {
+                var query = context.Exists
+                               .Include(e => e.Equipment)
+                               .Include(e => e.Responsible)
+                               .Where(e => e.Equipment.Patrimony == request.Patrimony);
+
+                var count = await query.CountAsync();
+
+                var exits = await query.OrderByDescending(e => e.ExitDate)
+                                      .Skip((request.PageNumber - 1) * request.PageSize)
+                                      .Take(request.PageSize)
+                                      .ToListAsync();
+                return new PagedResponse<List<Exit>>(exits, count, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Exit>>(null, 500, "Erro ao buscar saídas por patrimônio");
+            }
+            
+
+            
         }
     }
 }
