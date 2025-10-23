@@ -8,7 +8,7 @@ namespace Arko.Core.Requests
 {
     public class PagedRequest : Request
     {
-        public int PageNumber { get; set; }
-        public int PageSize { get; set; }
+        public int PageNumber { get; set; } = Definitions.DefaultPageNumber;
+        public int PageSize { get; set; } = Definitions.DefaultPageSize;
     }
 }

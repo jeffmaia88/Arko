@@ -47,22 +47,32 @@ namespace Arko.API.Handlers
             throw new NotImplementedException();
         }
 
-        public Task<PagedResponse<List<Entry>>> GetAllAsync(GetAllEntriesRequest request)
+        public async Task<PagedResponse<List<Entry>>> GetAllAsync(GetAllEntriesRequest request)
         {
-            throw new NotImplementedException();
+           throw new NotImplementedException();
         }
 
-        public async Task<Response<Entry>> GetByPatrimonyAsync(GetEntryPatrimonyRequest request)
+        public async Task<PagedResponse<List<Entry>>> GetAllByPatrimonyAsync(GetEntryPatrimonyRequest request)
         {
-            var entry = await context.Entries.Include(e => e.Equipment)
-                                             .FirstOrDefaultAsync(e => e.Equipment.Patrimony == request.Patrimony);
-
-            if (entry == null)
+            try
             {
-                return new Response<Entry>(null, 404, "Entrada de Equipamento não Encontrada");
-            }
+                var query = context.Entries
+                                   .Include(e => e.Equipment)
+                                   .Include(e => e.Responsible)
+                                   .Where(e => e.Equipment.Patrimony == request.Patrimony);
 
-            return new Response<Entry>(entry, 200, "Entrada de Equipamento Encontrada");
+                var totalCount = await query.CountAsync();
+
+                var entries = await query.OrderByDescending(e => e.EntryDate)
+                                         .Skip((request.PageNumber - 1) * request.PageSize)
+                                         .Take(request.PageSize)
+                                         .ToListAsync();
+                return new PagedResponse<List<Entry>>(entries, totalCount, request.PageNumber, request.PageSize);
+            }
+            catch
+            {
+                return new PagedResponse<List<Entry>>(null, 500, "Erro ao buscar entradas pelo patrimônio");
+            }
         }
 
         public Task<Response<Entry>> UpdateAsync(UpdateEntryRequest request)

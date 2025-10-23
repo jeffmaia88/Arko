@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arko.Core.Requests.Entries
 {
-    public  class GetEntryPatrimonyRequest : Request
+    public  class GetEntryPatrimonyRequest : PagedRequest
     {
         public string Patrimony { get; set; }
     }

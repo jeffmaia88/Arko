@@ -14,7 +14,7 @@ namespace Arko.Core.Handlers
         Task<Response<Entry>> CreateAsync(CreateEntryRequest request);
         Task<Response<Entry>> UpdateAsync(UpdateEntryRequest request);
         Task<Response<Entry>> DeleteAsync(DeleteEntryRequest request);
-        Task<Response<Entry>> GetByPatrimonyAsync(GetEntryPatrimonyRequest request);
+        Task<PagedResponse<List<Entry?>>> GetAllByPatrimonyAsync(GetEntryPatrimonyRequest request);
         Task<PagedResponse<List<Entry>>> GetAllAsync(GetAllEntriesRequest request);
 
     }

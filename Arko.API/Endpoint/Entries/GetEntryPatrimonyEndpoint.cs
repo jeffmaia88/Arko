@@ -1,4 +1,5 @@
 ﻿using Arko.API.Common.Api;
+using Arko.Core;
 using Arko.Core.Handlers;
 using Arko.Core.Models;
 using Arko.Core.Requests.Entries;
@@ -11,7 +12,7 @@ namespace Arko.API.Endpoint.Entries
     {
         public static void Map(IEndpointRouteBuilder app)
         {
-            app.MapGet("", HandleAsync)
+            app.MapGet("/{patrimony}", HandleAsync)
                 .WithName("Entradas : Busca")
                 .WithSummary("Busca uma entrada pelo patrimônio")
                 .WithDescription("Busca uma entrada pelo patrimônio")
@@ -19,16 +20,21 @@ namespace Arko.API.Endpoint.Entries
                 .Produces<Response<Entry?>>();
         }
 
-        private static async Task<IResult> HandleAsync([FromRoute] string patrimony, [FromServices] IEntryHandler handler)
+        private static async Task<IResult> HandleAsync([FromRoute] string patrimony,
+                                                       [FromQuery] int? pageNumber,
+                                                       [FromQuery] int? pageSize,
+                                                       [FromServices] IEntryHandler handler)
         {
             var request = new GetEntryPatrimonyRequest
             {
+                PageNumber = pageNumber ?? Definitions.DefaultPageNumber,
+                PageSize = pageSize ?? Definitions.DefaultPageSize,
                 Patrimony = patrimony
             };
-            var result = await handler.GetByPatrimonyAsync(request);
+            var result = await handler.GetAllByPatrimonyAsync(request);
             return result.IsSuccess
                 ? TypedResults.Ok(result.Data)
-                : TypedResults.BadRequest(result.Data);
+                : TypedResults.NotFound(result.Data);
         }
     }
 }
