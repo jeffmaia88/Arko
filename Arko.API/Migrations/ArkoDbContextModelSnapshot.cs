@@ -99,10 +99,7 @@ namespace Arko.API.Migrations
                     b.Property<DateTime>("EntryDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdAnalyst")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEquipment")
+                    b.Property<int>("EquipmentId")
                         .HasColumnType("int");
 
                     b.Property<string>("Origin")
@@ -110,11 +107,14 @@ namespace Arko.API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
 
+                    b.Property<int>("ResponsibleId")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAnalyst");
+                    b.HasIndex("EquipmentId");
 
-                    b.HasIndex("IdEquipment");
+                    b.HasIndex("ResponsibleId");
 
                     b.ToTable("Entradas", (string)null);
                 });
@@ -168,20 +168,20 @@ namespace Arko.API.Migrations
                         .HasMaxLength(255)
                         .HasColumnType("VARCHAR");
 
+                    b.Property<int>("EquipmentId")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("ExitDate")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("IdAnalyst")
-                        .HasColumnType("int");
-
-                    b.Property<int>("IdEquipment")
+                    b.Property<int>("ResponsibleId")
                         .HasColumnType("int");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("IdAnalyst");
+                    b.HasIndex("EquipmentId");
 
-                    b.HasIndex("IdEquipment");
+                    b.HasIndex("ResponsibleId");
 
                     b.ToTable("Saidas", (string)null);
                 });
@@ -210,16 +210,16 @@ namespace Arko.API.Migrations
 
             modelBuilder.Entity("Arko.Core.Models.Entry", b =>
                 {
-                    b.HasOne("Arko.Core.Models.Analyst", "Responsible")
-                        .WithMany("Entries")
-                        .HasForeignKey("IdAnalyst")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Arko.Core.Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Arko.Core.Models.Equipment", "Equipment")
-                        .WithMany("Entries")
-                        .HasForeignKey("IdEquipment")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Arko.Core.Models.Analyst", "Responsible")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Equipment");
@@ -229,15 +229,15 @@ namespace Arko.API.Migrations
 
             modelBuilder.Entity("Arko.Core.Models.Exit", b =>
                 {
-                    b.HasOne("Arko.Core.Models.Analyst", "Responsible")
-                        .WithMany("Exits")
-                        .HasForeignKey("IdAnalyst")
-                        .OnDelete(DeleteBehavior.Restrict)
+                    b.HasOne("Arko.Core.Models.Equipment", "Equipment")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Arko.Core.Models.Equipment", "Equipment")
-                        .WithMany("Exits")
-                        .HasForeignKey("IdEquipment")
+                    b.HasOne("Arko.Core.Models.Analyst", "Responsible")
+                        .WithMany()
+                        .HasForeignKey("ResponsibleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -246,22 +246,11 @@ namespace Arko.API.Migrations
                     b.Navigation("Responsible");
                 });
 
-            modelBuilder.Entity("Arko.Core.Models.Analyst", b =>
-                {
-                    b.Navigation("Entries");
-
-                    b.Navigation("Exits");
-                });
-
             modelBuilder.Entity("Arko.Core.Models.Equipment", b =>
                 {
                     b.Navigation("CurrentStock");
 
                     b.Navigation("Discharge");
-
-                    b.Navigation("Entries");
-
-                    b.Navigation("Exits");
                 });
 #pragma warning restore 612, 618
         }

@@ -12,7 +12,7 @@ namespace Arko.API.Endpoint
 
             endpoints.MapGroup("v1/entries")
                      .WithTags("Entries")
-                     .RequireAuthorization()
+                     //.RequireAuthorization()
                      .MapEndpoint<CreateEntryEndpoint>();
         }
 

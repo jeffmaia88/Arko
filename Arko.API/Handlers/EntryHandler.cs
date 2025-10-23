@@ -52,7 +52,7 @@ namespace Arko.API.Handlers
             throw new NotImplementedException();
         }
 
-        public Task<Response<Entry>> GetByIdAsync(GetEntryByIdRequest request)
+        public Task<Response<Entry>> GetByPatrimonyAsync(GetEntryPatrimonyRequest request)
         {
             throw new NotImplementedException();
         }

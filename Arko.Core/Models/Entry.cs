@@ -13,7 +13,6 @@ namespace Arko.Core.Models
         public DateTime EntryDate { get; set; }
         public Analyst Responsible { get; set; } = null!;
         public Equipment Equipment { get; set; } = null!;
-        public int IdEquipment { get; set; }
-        public int IdAnalyst { get; set; }
+
     }
 }

@@ -16,8 +16,7 @@ namespace Arko.API.Data.Mappings
             builder.Property(x => x.Destination).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
             builder.Property(x => x.ExitDate).IsRequired();
 
-            builder.HasOne(x => x.Responsible).WithMany(e => e.Exits).HasForeignKey(x => x.IdAnalyst);
-            builder.HasOne(x => x.Equipment).WithMany(e => e.Exits).HasForeignKey(e => e.IdEquipment);
+            
 
         }
     }

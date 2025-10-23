@@ -3,6 +3,7 @@ using Arko.Core.Handlers;
 using Arko.Core.Models;
 using Arko.Core.Requests.Entries;
 using Arko.Core.Responses;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Arko.API.Endpoint.Entries
 {
@@ -14,12 +15,13 @@ namespace Arko.API.Endpoint.Entries
                 .WithName("Entradas: Create")
                 .WithSummary("Cria uma nova entrada")
                 .WithDescription("Cria uma nova categoria")
-                .WithOrder(1);
+                .WithOrder(1)
+                .Produces<Response<Entry?>>();
 
 
         }
 
-        private static async Task<IResult> HandleAsync(IEntryHandler handler, CreateEntryRequest request)
+        private static async Task<IResult> HandleAsync([FromBody] CreateEntryRequest request, [FromServices] IEntryHandler handler)
         {
             var result =  await handler.CreateAsync(request);
             return result.IsSuccess 
@@ -27,7 +29,7 @@ namespace Arko.API.Endpoint.Entries
                 : TypedResults.BadRequest(result.Data);
 
             // Ternario
-            // TypedResults remove a necessidade de Produces<Response<Entry>> em .MapPost
+            
         }
     }
 }
