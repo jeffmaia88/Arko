@@ -8,6 +8,6 @@ namespace Arko.Core.Requests.Entries
 {
     public  class GetEntryPatrimonyRequest : Request
     {
-        public int Id { get; set; }
+        public string Patrimony { get; set; }
     }
 }

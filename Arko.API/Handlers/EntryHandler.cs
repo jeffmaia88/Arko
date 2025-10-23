@@ -52,9 +52,17 @@ namespace Arko.API.Handlers
             throw new NotImplementedException();
         }
 
-        public Task<Response<Entry>> GetByPatrimonyAsync(GetEntryPatrimonyRequest request)
+        public async Task<Response<Entry>> GetByPatrimonyAsync(GetEntryPatrimonyRequest request)
         {
-            throw new NotImplementedException();
+            var entry = await context.Entries.Include(e => e.Equipment)
+                                             .FirstOrDefaultAsync(e => e.Equipment.Patrimony == request.Patrimony);
+
+            if (entry == null)
+            {
+                return new Response<Entry>(null, 404, "Entrada de Equipamento não Encontrada");
+            }
+
+            return new Response<Entry>(entry, 200, "Entrada de Equipamento Encontrada");
         }
 
         public Task<Response<Entry>> UpdateAsync(UpdateEntryRequest request)

@@ -7,13 +7,18 @@ namespace Arko.API.Endpoint
     {
         public static void MapEndpoints(this WebApplication app)
         {
-            var endpoints = app.MapGroup("v1");
+           // var endpoints = app.MapGroup("/")
+                             //  .WithTags("Health Check")
+                               //.MapGet("", () => new { message = "Ok" });
 
+            var entries = app.MapGroup("v1/entries");
+                             
 
-            endpoints.MapGroup("v1/entries")
+            entries.MapGroup("v1/entries")
                      .WithTags("Entries")
                      //.RequireAuthorization()
-                     .MapEndpoint<CreateEntryEndpoint>();
+                     .MapEndpoint<CreateEntryEndpoint>()
+                     .MapEndpoint<GetEntryPatrimonyEndpoint>();
         }
 
         private static IEndpointRouteBuilder MapEndpoint<TEndpoint>(this IEndpointRouteBuilder app)
