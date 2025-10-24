@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arko.API.Handlers
 {
-    public class ExitHandler(ArkoDbContext context) : IExitHandler
+    public class ExitHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler) : IExitHandler
     {
         public async Task<Response<Exit>> CreateAsync(CreateExitRequest request)
         {
@@ -35,6 +35,8 @@ namespace Arko.API.Handlers
                 };
                 context.Exists.Add(exit);
                 await context.SaveChangesAsync();
+                await currentStockHandler.RemoveFromStockAsync(equipment.Patrimony);
+
                 return new Response<Exit>(exit, 201, "Saída registrada com sucesso");
             }
             catch

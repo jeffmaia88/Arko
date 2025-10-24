@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arko.API.Handlers
 {
-    public class EntryHandler(ArkoDbContext context) : IEntryHandler
+    public class EntryHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler) : IEntryHandler
     {
         public async Task<Response<Entry>> CreateAsync(CreateEntryRequest request)
         {
@@ -37,6 +37,7 @@ namespace Arko.API.Handlers
 
             context.Entries.Add(entry);
             await context.SaveChangesAsync();
+            await currentStockHandler.AddToStockAsync(equipment.Patrimony);
 
             return new Response<Entry>(entry, 201, "Entrada Registrada com Sucesso");            
 

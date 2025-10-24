@@ -11,6 +11,7 @@ builder.Services.AddDbContext<ArkoDbContext>(x => { x.UseSqlServer(cnnStr); });
 
 builder.Services.AddScoped<IEntryHandler, EntryHandler>();
 builder.Services.AddScoped<IExitHandler, ExitHandler>();
+builder.Services.AddScoped<ICurrentStockHandler, CurrentStockHandler>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();
