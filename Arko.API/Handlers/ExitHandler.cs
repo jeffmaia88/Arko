@@ -68,7 +68,7 @@ namespace Arko.API.Handlers
             
         }
 
-        public async Task<PagedResponse<List<Exit>>> GetExitPatrimonyAsync(GetExitPatrimonyRequest request)
+        public async Task<PagedResponse<List<Exit>>> GetAllExitPatrimonyAsync(GetAllExitPatrimonyRequest request)
         {
             try
             {
@@ -77,13 +77,13 @@ namespace Arko.API.Handlers
                                .Include(e => e.Responsible)
                                .Where(e => e.Equipment.Patrimony == request.Patrimony);
 
-                var count = await query.CountAsync();
+                var totalCount = await query.CountAsync();
 
                 var exits = await query.OrderByDescending(e => e.ExitDate)
                                       .Skip((request.PageNumber - 1) * request.PageSize)
                                       .Take(request.PageSize)
                                       .ToListAsync();
-                return new PagedResponse<List<Exit>>(exits, count, request.PageNumber, request.PageSize);
+                return new PagedResponse<List<Exit>>(exits, totalCount, request.PageNumber, request.PageSize);
             }
             catch
             {

@@ -1,5 +1,6 @@
 ﻿using Arko.API.Common.Api;
 using Arko.API.Endpoint.Entries;
+using Arko.API.Endpoint.Exits;
 
 namespace Arko.API.Endpoint
 {
@@ -20,6 +21,15 @@ namespace Arko.API.Endpoint
                      .MapEndpoint<CreateEntryEndpoint>()
                      .MapEndpoint<GetEntryPatrimonyEndpoint>()
                      .MapEndpoint<GetAllEntriesEndpoint>();
+
+            var exits = app.MapGroup("v1/exits");
+
+            exits.MapGroup("v1/exits")
+                 .WithTags("Exits")
+                 //.RequireAuthorization()
+                 .MapEndpoint<CreateExitEndpoint>()
+                 .MapEndpoint<GetExitPatrimonyEndpoint>()
+                 .MapEndpoint<GetAllExitsEndpoint>();
 
         }
 

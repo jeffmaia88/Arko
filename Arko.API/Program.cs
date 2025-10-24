@@ -10,6 +10,7 @@ var cnnStr = builder.Configuration.GetConnectionString("DefaultConnection") ?? s
 builder.Services.AddDbContext<ArkoDbContext>(x => { x.UseSqlServer(cnnStr); });
 
 builder.Services.AddScoped<IEntryHandler, EntryHandler>();
+builder.Services.AddScoped<IExitHandler, ExitHandler>();
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddOpenApi();

@@ -19,7 +19,7 @@ namespace Arko.API.Endpoint.Exits
                .Produces<Response<Exit>>();
         }
 
-        private static async Task<IResult> HandleAsync([FromServices] IExitHandler handler, [FromBody] CreateExitRequest request)
+        private static async Task<IResult> HandleAsync([FromBody] CreateExitRequest request, [FromServices] IExitHandler handler)
         {
             var result = await handler.CreateAsync(request);
             return result.IsSuccess

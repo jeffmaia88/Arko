@@ -13,6 +13,6 @@ namespace Arko.Core.Handlers
     {
         Task<Response<Exit>> CreateAsync(CreateExitRequest request);
         Task<PagedResponse<List<Exit>>> GetAllExitsAsync (GetAllExitsRequest request);
-        Task<PagedResponse<List<Exit>>> GetExitPatrimonyAsync (GetExitPatrimonyRequest request);
+        Task<PagedResponse<List<Exit>>> GetAllExitPatrimonyAsync (GetAllExitPatrimonyRequest request);
     }
 }

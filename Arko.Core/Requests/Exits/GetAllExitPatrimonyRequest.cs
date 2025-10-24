@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Arko.Core.Requests.Exits
 {
-    public class GetExitPatrimonyRequest : PagedRequest
+    public class GetAllExitPatrimonyRequest : PagedRequest
     {
         public string Patrimony { get; set; } = string.Empty;
     }

@@ -28,7 +28,7 @@ namespace Arko.API.Endpoint.Entries
                 ? TypedResults.Created($"/{result.Data?.Id}", result.Data)            
                 : TypedResults.BadRequest(result.Data);
 
-            // Ternario
+            
             
         }
     }
