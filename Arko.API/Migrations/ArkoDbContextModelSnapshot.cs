@@ -51,9 +51,6 @@ namespace Arko.API.Migrations
                     b.Property<int>("EquipmentId")
                         .HasColumnType("int");
 
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("EquipmentId")
@@ -71,19 +68,14 @@ namespace Arko.API.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<DateTime>("DateDischarge")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("DATETIME");
 
                     b.Property<int>("EquipmentId")
                         .HasColumnType("int");
 
-                    b.Property<string>("Reason")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.HasKey("Id");
 
-                    b.HasIndex("EquipmentId")
-                        .IsUnique();
+                    b.HasIndex("EquipmentId");
 
                     b.ToTable("Baixa", (string)null);
                 });
@@ -142,6 +134,9 @@ namespace Arko.API.Migrations
                         .HasMaxLength(64)
                         .HasColumnType("VARCHAR");
 
+                    b.Property<int>("Status")
+                        .HasColumnType("INT");
+
                     b.Property<string>("Type")
                         .IsRequired()
                         .HasMaxLength(255)
@@ -189,8 +184,8 @@ namespace Arko.API.Migrations
             modelBuilder.Entity("Arko.Core.Models.CurrentStock", b =>
                 {
                     b.HasOne("Arko.Core.Models.Equipment", "Equipment")
-                        .WithOne("CurrentStock")
-                        .HasForeignKey("Arko.Core.Models.CurrentStock", "EquipmentId")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -200,8 +195,8 @@ namespace Arko.API.Migrations
             modelBuilder.Entity("Arko.Core.Models.Discharge", b =>
                 {
                     b.HasOne("Arko.Core.Models.Equipment", "Equipment")
-                        .WithOne("Discharge")
-                        .HasForeignKey("Arko.Core.Models.Discharge", "EquipmentId")
+                        .WithMany()
+                        .HasForeignKey("EquipmentId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
@@ -244,13 +239,6 @@ namespace Arko.API.Migrations
                     b.Navigation("Equipment");
 
                     b.Navigation("Responsible");
-                });
-
-            modelBuilder.Entity("Arko.Core.Models.Equipment", b =>
-                {
-                    b.Navigation("CurrentStock");
-
-                    b.Navigation("Discharge");
                 });
 #pragma warning restore 612, 618
         }

@@ -7,7 +7,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arko.API.Handlers
 {
-    public class ExitHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler) : IExitHandler
+    public class ExitHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler, IDischargeHandler discharge) : IExitHandler
     {
         public async Task<Response<Exit>> CreateAsync(CreateExitRequest request)
         {
@@ -25,6 +25,12 @@ namespace Arko.API.Handlers
                     return new Response<Exit>(null, 404, "Equipamento não encontrado");
                 }
 
+                var stockResponse = await currentStockHandler.RemoveFromStockAsync(equipment.Patrimony);
+                if (!stockResponse.IsSuccess)
+                {
+                    return new Response<Exit>(null, 409, stockResponse.Message);
+                }
+
                 var exit = new Exit
                 {
                     Destination = request.Destination,
@@ -33,9 +39,10 @@ namespace Arko.API.Handlers
                     Equipment = equipment
 
                 };
+                await discharge.RemoveDischargeAsync(equipment.Patrimony);
                 context.Exists.Add(exit);
                 await context.SaveChangesAsync();
-                await currentStockHandler.RemoveFromStockAsync(equipment.Patrimony);
+                                
 
                 return new Response<Exit>(exit, 201, "Saída registrada com sucesso");
             }

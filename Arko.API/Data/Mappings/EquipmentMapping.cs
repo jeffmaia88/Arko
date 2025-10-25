@@ -17,6 +17,7 @@ namespace Arko.API.Data.Mappings
             builder.Property(x => x.Type).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
             builder.Property(x => x.Brand).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
             builder.Property(x => x.Model).HasColumnType("VARCHAR").HasMaxLength(255).IsRequired();
+            builder.Property(x => x.Status).HasColumnType("INT").IsRequired();
 
             builder.HasIndex(x => x.Patrimony).IsUnique();
 

@@ -27,6 +27,7 @@ namespace Arko.Core.Responses
 
         public TData? Data { get; set; }
         public string? Message { get; set; } = string.Empty;
+        public int StatusCode => _code;
 
 
         [JsonIgnore]

@@ -13,10 +13,8 @@ namespace Arko.API.Data.Mappings
             builder.HasKey(x => x.Id);
 
             builder.Property(x => x.Id).ValueGeneratedOnAdd().UseIdentityColumn();
-
-            builder.Property(x => x.Reason).IsRequired();
-
-            builder.HasOne(x => x.Equipment).WithOne(e => e.Discharge).HasForeignKey<Discharge>(x => x.EquipmentId).OnDelete(DeleteBehavior.Restrict);
+            builder.Property(x => x.DateDischarge).HasColumnType("DATETIME").IsRequired();
+            builder.HasOne(x => x.Equipment).WithMany().HasForeignKey(x => x.EquipmentId).OnDelete(DeleteBehavior.Restrict);
 
 
         }

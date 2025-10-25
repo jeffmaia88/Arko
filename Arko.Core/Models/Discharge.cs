@@ -10,7 +10,6 @@ namespace Arko.Core.Models
     {
         public int Id { get; set; }
         public DateTime DateDischarge { get; set; }
-        public string Reason { get; set; } = string.Empty;
         public Equipment? Equipment { get; set; }
         public int EquipmentId { get; set; }
     }

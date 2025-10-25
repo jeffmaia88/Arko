@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace Arko.API.Migrations
 {
     /// <inheritdoc />
-    public partial class v17 : Migration
+    public partial class v110 : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,7 +33,8 @@ namespace Arko.API.Migrations
                     Patrimony = table.Column<string>(type: "VARCHAR(64)", maxLength: 64, nullable: false),
                     Type = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
                     Brand = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
-                    Model = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false)
+                    Model = table.Column<string>(type: "VARCHAR(255)", maxLength: 255, nullable: false),
+                    Status = table.Column<int>(type: "INT", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -46,8 +47,7 @@ namespace Arko.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    DateDischarge = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    Reason = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DateDischarge = table.Column<DateTime>(type: "DATETIME", nullable: false),
                     EquipmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -95,7 +95,6 @@ namespace Arko.API.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Status = table.Column<int>(type: "int", nullable: false),
                     EquipmentId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -140,8 +139,7 @@ namespace Arko.API.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Baixa_EquipmentId",
                 table: "Baixa",
-                column: "EquipmentId",
-                unique: true);
+                column: "EquipmentId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Entradas_EquipmentId",

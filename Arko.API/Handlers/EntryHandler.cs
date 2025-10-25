@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Arko.API.Handlers
 {
-    public class EntryHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler) : IEntryHandler
+    public class EntryHandler(ArkoDbContext context, ICurrentStockHandler currentStockHandler, IDischargeHandler discharge) : IEntryHandler
     {
         public async Task<Response<Entry>> CreateAsync(CreateEntryRequest request)
         {
@@ -26,6 +26,11 @@ namespace Arko.API.Handlers
                 return new Response<Entry>(null, 404, "Analista não encontrado");
             }
 
+            var stockResponse = await currentStockHandler.AddToStockAsync(equipment.Patrimony);
+            if (!stockResponse.IsSuccess)
+            {
+                return new Response<Entry>(null, 409 , stockResponse.Message);
+            }
 
             var entry = new Entry
             {
@@ -35,11 +40,13 @@ namespace Arko.API.Handlers
                 Responsible = analyst,
             };
 
+            await discharge.AddDischargeAsync(equipment.Patrimony);
             context.Entries.Add(entry);
             await context.SaveChangesAsync();
-            await currentStockHandler.AddToStockAsync(equipment.Patrimony);
+            return new Response<Entry>(entry, 201, "Entrada Registrada com Sucesso");
+            
 
-            return new Response<Entry>(entry, 201, "Entrada Registrada com Sucesso");            
+
 
         }
 

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Arko.Core.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,9 +14,8 @@ namespace Arko.Core.Models
         public string Type { get; set; } = string.Empty;
         public string Brand { get; set; } = string.Empty;
         public string Model { get; set; } = string.Empty;
-        public CurrentStock? CurrentStock { get; set; }
-        public Discharge? Discharge { get; set; }
-     
+        public Status Status { get; set; }
+
 
     }
 }

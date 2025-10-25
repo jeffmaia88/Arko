@@ -25,11 +25,12 @@ namespace Arko.API.Endpoint.Entries
         {
             var result =  await handler.CreateAsync(request);
             return result.IsSuccess 
-                ? TypedResults.Created($"/{result.Data?.Id}", result.Data)            
-                : TypedResults.BadRequest(result.Data);
+                ? Results.Created($"/{result.Data?.Id}", result) 
+                : Results.BadRequest(new { message = result.Message });
 
-            
-            
+
+
+
         }
     }
 }
